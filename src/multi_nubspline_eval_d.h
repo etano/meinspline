@@ -25,6 +25,10 @@
 #include <stdio.h>
 #include "multi_nubspline_structs.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /************************************************************/
 /* 1D double-precision, real evaulation functions        */
 /************************************************************/
@@ -108,4 +112,9 @@ eval_multi_NUBspline_3d_d_vgh (multi_NUBspline_3d_d *spline,
 			       double* restrict vals,
 			       double* restrict grads,
 			       double* restrict hess);
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif

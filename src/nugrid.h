@@ -72,6 +72,20 @@ typedef struct
 } log_grid;
 
 
+typedef struct
+{
+  // public data
+  grid_type code;
+  double start, end;
+  double* restrict points;
+  int num_points;
+  int (*reverse_map)(void *grid, double x);
+
+  // private data
+  double a, ainv;
+} linear_grid;
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -79,6 +93,9 @@ extern "C" {
 NUgrid*
 create_center_grid (double start, double end, double ratio, 
 		    int num_points);
+
+NUgrid*
+create_linear_grid (double start, double end, int num_points);
 
 NUgrid*
 create_log_grid (double start, double end, int num_points);

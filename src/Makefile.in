@@ -88,14 +88,15 @@ am__libeinspline_la_SOURCES_DIST = aligned_alloc.h bspline_base.h \
 	multi_bspline_eval_c.h multi_bspline_eval_d.h \
 	multi_bspline_eval_s.h multi_bspline_eval_z.h \
 	multi_bspline_structs.h multi_nubspline_create.c \
-	nubspline_base.h nubspline_create.c nubspline_create.h \
-	nubspline_eval_sse_s.h nubspline_eval_std_s.h \
-	nubspline_eval_sse_c.h nubspline_eval_std_c.h \
-	nubspline_eval_sse_d.h nubspline_eval_std_d.h \
-	nubspline_eval_sse_z.h nubspline_eval_std_z.h \
-	nubspline_structs.h nubasis.h nubasis.c nugrid.h nugrid.c \
-	multi_bspline_eval_std_s.c multi_bspline_eval_std_s_cpp.cc \
-	multi_bspline_eval_std_c.c multi_bspline_eval_std_c_cpp.cc \
+	multi_nubspline_eval_d.c nubspline_base.h nubspline_create.c \
+	nubspline_create.h nubspline_eval_sse_s.h \
+	nubspline_eval_std_s.h nubspline_eval_sse_c.h \
+	nubspline_eval_std_c.h nubspline_eval_sse_d.h \
+	nubspline_eval_std_d.h nubspline_eval_sse_z.h \
+	nubspline_eval_std_z.h nubspline_structs.h nubasis.h nubasis.c \
+	nugrid.h nugrid.c multi_bspline_eval_std_s.c \
+	multi_bspline_eval_std_s_cpp.cc multi_bspline_eval_std_c.c \
+	multi_bspline_eval_std_c_cpp.cc \
 	multi_bspline_eval_std_s_impl.h \
 	multi_bspline_eval_std_c_impl.h multi_bspline_eval_sse_s.c \
 	multi_bspline_eval_sse_s_cpp.cc multi_bspline_eval_sse_c.c \
@@ -147,9 +148,9 @@ am__libeinspline_la_SOURCES_DIST = aligned_alloc.h bspline_base.h \
 @WANT_FORTRAN_TRUE@	fnubspline.lo
 am_libeinspline_la_OBJECTS = bspline_create.lo bspline_data.lo \
 	multi_bspline_create.lo multi_nubspline_create.lo \
-	nubspline_create.lo nubasis.lo nugrid.lo $(am__objects_1) \
-	$(am__objects_2) $(am__objects_3) $(am__objects_4) \
-	$(am__objects_5)
+	multi_nubspline_eval_d.lo nubspline_create.lo nubasis.lo \
+	nugrid.lo $(am__objects_1) $(am__objects_2) $(am__objects_3) \
+	$(am__objects_4) $(am__objects_5)
 libeinspline_la_OBJECTS = $(am_libeinspline_la_OBJECTS)
 @HAVE_CUDA_TRUE@am__EXEEXT_1 = test_multi_cuda$(EXEEXT)
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
@@ -462,6 +463,7 @@ libeinspline_la_SOURCES = \
                        multi_bspline_eval_z.h         \
                        multi_bspline_structs.h        \
                        multi_nubspline_create.c       \
+                       multi_nubspline_eval_d.c       \
                        nubspline_base.h               \
                        nubspline_create.c             \
                        nubspline_create.h             \
@@ -692,6 +694,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/multi_bspline_eval_std_z.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/multi_bspline_eval_std_z_cpp.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/multi_nubspline_create.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/multi_nubspline_eval_d.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/multi_nubspline_eval_sse_z.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/multi_nubspline_eval_sse_z_cpp.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/multi_nubspline_eval_std_z.Plo@am__quote@

@@ -47,6 +47,18 @@ log_grid_reverse_map (void *gridptr, double x)
     return index;
 }
 
+int
+linear_grid_reverse_map (void *gridptr, double x)
+{
+  linear_grid *grid = (linear_grid *)gridptr;
+  
+  int index = (int) nearbyint((x-grid->start)*grid->ainv-0.5);
+
+  if (index < 0)
+    return 0;
+  else
+    return index;
+}
 
 int
 general_grid_reverse_map (void* gridptr, double x)
@@ -142,6 +154,25 @@ create_log_grid (double start, double end,
   for (int i=0; i<num_points; i++)
     grid->points[i] = start*exp(grid->a*(double)i);
   grid->reverse_map = log_grid_reverse_map;
+  return (NUgrid*) grid;
+}
+
+
+NUgrid*
+create_linear_grid (double start, double end,
+		 int num_points)
+{
+  linear_grid *grid = malloc (sizeof (linear_grid));
+  grid->code = LINEAR;
+  grid->start = start;
+  grid->end = end;
+  grid->num_points = num_points;
+  grid->points = malloc(num_points*sizeof(double));
+  grid->a = 1.0/(double)(num_points-1)*(end-start);
+  grid->ainv = 1.0/grid->a;
+  for (int i=0; i<num_points; i++)
+    grid->points[i] = start + (double)i*grid->a;
+  grid->reverse_map = linear_grid_reverse_map;
   return (NUgrid*) grid;
 }
 
