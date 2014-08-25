@@ -1,2 +1,12 @@
 *.o
 *.lo
+*Makefile
+config.log
+config.status
+*.pc
+libtool
+*.deps
+*.libs
+*.la
+src/stamp-h1
+src/time_multi
