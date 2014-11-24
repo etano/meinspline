@@ -10,3 +10,10 @@ libtool
 *.la
 src/stamp-h1
 src/time_multi
+compile
+configure
+*.m4
+autom4te.cache/
+ltmain.sh
+*.in
+*.in~
