@@ -147,6 +147,7 @@ fi
 
 if test "x$enable_sse" = "xyes"; then
    AX_EXT
+   CFLAGS="$SIMD_FLAGS $CFLAGS"
 fi
 
 AM_CONDITIONAL([HAVE_SSE],    [test "$ax_have_sse_ext"    = "yes"])
