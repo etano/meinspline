@@ -61,6 +61,23 @@ linear_grid_reverse_map (void *gridptr, double x)
 }
 
 int
+loglin_grid_reverse_map (void *gridptr, double x)
+{
+  loglin_grid *grid = (loglin_grid *)gridptr;
+
+  int index;
+  if (x > grid->paste)
+    index = (grid->num_points/2) - 1 + (int) nearbyint((x-grid->paste)*grid->ainv-0.5);
+  else
+    index = (int) floor(grid->gx0*log(x*grid->startinv));
+
+  if (index < 0)
+    return 0;
+  else
+    return index;
+}
+
+int
 general_grid_reverse_map (void* gridptr, double x)
 {
   NUgrid* grid = (NUgrid*) gridptr;
@@ -173,6 +190,33 @@ create_linear_grid (double start, double end,
   for (int i=0; i<num_points; i++)
     grid->points[i] = start + (double)i*grid->a;
   grid->reverse_map = linear_grid_reverse_map;
+  return (NUgrid*) grid;
+}
+
+
+NUgrid*
+create_loglin_grid (double start, double end, double paste,
+		 int num_points)
+{
+  loglin_grid *grid = malloc (sizeof (loglin_grid));
+  grid->code = LOGLIN;
+  grid->start = start;
+  grid->end = end;
+  grid->paste = paste;
+  grid->num_points = num_points;
+  grid->points = malloc(num_points*sizeof(double));
+  grid->a = (end-paste)/(double)(((num_points/2)+1)-1);
+  grid->ainv = 1.0/grid->a;
+  grid->ga = pow(paste/start, 1.0/(double)((num_points/2)-1));
+  grid->gx0 = ((double)((num_points/2)-1))/log(paste/start);
+  grid->startinv = 1.0/start;
+  for (int i=0; i<num_points; i++) {
+    if (i<num_points/2)
+      grid->points[i] = start*pow(grid->ga,i);
+    else
+      grid->points[i] = paste + (double)(i+1-(num_points/2))*grid->a;
+  }
+  grid->reverse_map = loglin_grid_reverse_map;
   return (NUgrid*) grid;
 }
 

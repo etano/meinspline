@@ -24,7 +24,7 @@
 #include <stdbool.h>
 
 
-typedef enum { LINEAR, GENERAL, CENTER, LOG } grid_type;
+typedef enum { LINEAR, GENERAL, CENTER, LOG, LOGLIN } grid_type;
 
 // Nonuniform grid base structure
 typedef struct
@@ -86,6 +86,20 @@ typedef struct
 } linear_grid;
 
 
+typedef struct
+{
+  // public data
+  grid_type code;
+  double start, end;
+  double* restrict points;
+  int num_points;
+  int (*reverse_map)(void *grid, double x);
+
+  // private data
+  double a, ainv, ga, gx0, startinv, paste;
+} loglin_grid;
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -99,6 +113,10 @@ create_linear_grid (double start, double end, int num_points);
 
 NUgrid*
 create_log_grid (double start, double end, int num_points);
+
+NUgrid*
+create_loglin_grid (double start, double end, double paste, 
+		    int num_points);
 
 NUgrid*
 create_general_grid (double *points, int num_points);
